@@ -6,3 +6,9 @@ CREATE TABLE quarto (
   reservado INTEGER NOT NULL CHECK (reservado IN (0, 1)),
   valor_diaria INTEGER NOT NULL CHECK (valor_diaria > 0)
 );
+CREATE TABLE usuario (
+  chave INTEGER PRIMARY KEY AUTOINCREMENT,
+  login TEXT NOT NULL,
+  senha TEXT NOT NULL,
+  nome TEXT NOT NULL
+);
