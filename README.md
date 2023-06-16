@@ -6,8 +6,6 @@
 *Carlos Hardman<br>
 *Anthony Stapf<br>
 
-# ADO 3
-
 ## Objetivo
 
 Continue o ADO 2 com AJAX e login/senha.
