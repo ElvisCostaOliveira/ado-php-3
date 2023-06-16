@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['logged_in'])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once 'conecta_sqlite.php';
 require_once 'operacoes.php';
 
@@ -17,13 +24,15 @@ try {
 <head>
     <title>Listagem de Quartos</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Listagem de Quartos</h1>
         
+        <p>Usuário logado: <?php echo $_SESSION['username']; ?></p>
+
         <?php if (!empty($quartos)) { ?>
             <table class="table">
                 <thead>
@@ -45,7 +54,7 @@ try {
                             <td><?php echo $quarto['camas_casal']; ?></td>
                             <td><?php echo $quarto['area_m2']; ?></td>
                             <td><?php echo ($quarto['reservado'] == 1) ? 'Sim' : 'Não'; ?></td>
-                            <td>R$ <?php echo number_format($quarto['valor_diaria'] * 1, 2, ',', '.'); ?></td>
+                            <td>R$ <?php echo number_format($quarto['valor_diaria'], 2, ',', '.'); ?></td>
 
                             <td>
                                 <a href="cadastrar.php?acao=alterar&numero=<?php echo $quarto['numero']; ?>" class="btn btn-primary">Editar</a>
@@ -55,10 +64,12 @@ try {
                     <?php } ?>
                 </tbody>
             </table>
-            <a href="cadastrar.php?acao=inserir" class="btn btn-primary">Inserir Reserva</a>
         <?php } else { ?>
-            <p>Nenhum quarto cadastrado.</p>
+            <p>Não há quartos cadastrados.</p>
         <?php } ?>
+
+        <a href="cadastrar.php" class="btn btn-success">Cadastrar Quarto</a>
+        <a href="logout.php" class="btn btn-secondary">Sair</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
